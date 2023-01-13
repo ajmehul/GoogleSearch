@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -61,8 +62,16 @@ public class DemoTest {
 		driver.quit();
 	}
 
+	@Test(priority=1)
+	public void verifyGoogleHomePage() throws Exception{
+		String title = driver.getTitle();
+		googleSearch= new GoogleSearchPage(driver);
+		boolean isTitle = googleSearch.assertValues(title, "Google");
+		Assert.assertTrue(isTitle, "Title is Correct as Expected");
+	}
 	
-	@Test
+	
+	@Test(priority=2)
 	public void GoogleSearch_Facebook() throws IOException {
 
 		googleSearch= new GoogleSearchPage(driver);
@@ -88,9 +97,7 @@ public class DemoTest {
 	}
 
 
-
-
-	@Test
+	@Test(priority=2)
 	public  void GoogleSearch_Twitter() throws IOException {
 
 		googleSearch= new GoogleSearchPage(driver);
@@ -114,7 +121,7 @@ public class DemoTest {
 	}
 
 
-	@Test
+	@Test(priority=2)
 	public  void GoogleSearch_LinkedIn() throws IOException {
 
 		googleSearch= new GoogleSearchPage(driver);
